@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>HTML CSS JAVASCRIPT PRACTICE</title>
+        <style>
+            * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0; }
+body {
+    background: linear-gradient(to left, pink, skyblue);
+}
+.hidden {
+    display: none;
+}
+.visibility {
+    visibility: hidden;
+}
+
+main {
+    width: 600px;
+    margin: auto;
+    height: auto;
+    margin-top: 100px;
+    border-radius: 50%;
+    /* background: #fff; */
+}
+main .sections {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: .5px .5px 10px 1px grey;
+}
+main .sections .section .imgs {
+    width: 330px;
+    box-shadow: .5px .5px 10px 1px grey;
+    height: 350px;
+}
+main .sections .section .imgs img {
+    width: 100%;
+    height: 100%;
+}
+main .sections .section h1 {
+    font-size: 23px;
+}
+main .sections .section form {
+    margin-right: 35px;
+    line-height: 2;
+}
+main .sections .section form input[type="text"] {
+    padding: 5px 10px;
+    outline-style: none;
+}
+main .sections .section form .btn-style {
+    padding: 5px 0;
+    margin-top: 5px;
+    font-weight: bold;
+    background-color: skyblue;
+    border-radius: 10%;
+    outline: none;
+    cursor: pointer;
+    width: 61px;
+}
+
+@media screen and (max-width: 600px) {
+    main {
+        margin: 50px 0;
+        background-color: transparent;
+    }
+    main,
+    main .sections .imgs,
+    main .sections .imgs img {
+        width: 100%;
+    }
+    main .sections {
+        flex-direction: column;
+    }
+    main .sections .imgs,
+    main .sections .section form {
+        margin: 0;
+    }
+    main .sections .section {
+        margin: 20px 0;
+    }
+    main .sections .section form input[type="text"],
+    main .sections .section form button {
+        width: 100%;
+    }
+}
+        </style>
+	</head>
+	<body>
+		<main>
+			<div class="sections">
+				<section class="section">
+					<div class="imgs">
+						<img class="img" />
+					</div>
+				</section>
+				<section class="section">
+					<h1>Guess My Name</h1>
+					<form>
+						<label for="names">Enter name:</label> <br/>
+						<input type="text" id="names" placeholder="Enter name" /> <br/>
+						<button type="button" class="btn-style" id="shaffle_img">Shaffle</button>
+						
+						<button type="button" class="btn-style visibility" id="btn_sub">Check</button>
+
+						<button type="button" class="btn-style" id="again">Reset</button>
+					</form>
+				</section>
+			</div>
+		</main>
+		<script>
+            const btn = document.getElementById("btn_sub");
+            const shaffleImg = document.getElementById("shaffle_img");
+            const btnCheck = document.getElementById("btn_sub");
+            const again = document.getElementById("again");
+            const correct = document.querySelector(".correct");
+            const wrong = document.querySelector(".wrong");
+            const input_name = document.querySelector(".input_name");
+            let names = document.getElementById("names").value;
+            let img = document.querySelector(".img");
+
+            let randomImage = Math.floor(Math.random() * 10);
+            let imgs = randomImage;
+            const namesList = [ "Marife", "Rechel", "Ralph", "Kem", "Jun jun", "Jonalyn", "Jairen", "Emely", "Elvie", "Arvie"];
+            let list = namesList[imgs];
+
+            const shaffle_image = function() {
+                randomImage = Math.floor(Math.random() * 10);
+                imgs = randomImage;
+                list = namesList[imgs];
+                img.classList.remove("hidden");
+                img.src = `./SQD/pic-${imgs}.jpg`;
+                btnCheck.classList.remove("visibility");
+                names = document.getElementById("names").value = "";
+                document.querySelector("body").style.background = "linear-gradient(to left, pink, skyblue)";
+            }
+            const check_image = function() {
+                names = document.getElementById("names").value;
+                if (names === namesList[imgs]) {
+                    document.querySelector("body").style.background = "linear-gradient(to right, pink, skyblue)";
+                    alert("Correct!");
+                    correct.classList.remove("hidden");
+                } else if (names === "") {
+                    alert("Enter name!");
+                } else if (names !== namesList) {
+                    alert("Check your spelling");
+                }
+            }
+            const reset = function() {
+                names = document.getElementById("names").value = "";
+                img.classList.add("hidden");
+                btnCheck.classList.add("visibility");
+                document.querySelector("body").style.background = "linear-gradient(to left, pink, skyblue)";
+            }
+            shaffleImg.addEventListener("click", shaffle_image);
+            btnCheck.addEventListener("click", check_image);
+            again.addEventListener("click", reset);
+        </script>
+	</body>
+</html>
